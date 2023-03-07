@@ -7,8 +7,8 @@ import io.cucumber.junit.CucumberOptions;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-		plugin = {"pretty", "html:target\\cucumber-reports.html"},
-		features = "src\\test\\resources\\featuresFolder",
+		plugin = {"pretty", "html:target/cucumber-reports.html"},
+		features = "src/test/resources/featuresFolder",
 		glue = "step_definition",
 //		dryRun = true,
 		dryRun = false,

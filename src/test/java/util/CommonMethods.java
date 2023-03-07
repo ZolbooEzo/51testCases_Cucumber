@@ -2,16 +2,21 @@ package util;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class CommonMethods extends PageInitializer{
@@ -59,12 +64,20 @@ public class CommonMethods extends PageInitializer{
 
 	public static void click(WebElement element) {
 		waitForClick(element).click();
-		;
+	}
+	
+	public static void javaClick(WebElement element) {
+		getJSObject().executeScript("arguments[0].click();", element);
 	}
 
 	public static void sendText(WebElement element, String message) {
 		waitForVisibility(element).clear();
 		element.sendKeys(message);
+	}
+	
+	public static void sendTextEnter(WebElement element, String message) {
+		waitForVisibility(element).clear();
+		element.sendKeys(message, Keys.ENTER);
 	}
 	
 	public static void sendTextPassword(WebElement element, String message) {
@@ -117,6 +130,13 @@ public class CommonMethods extends PageInitializer{
 			}
 		}
 		return null;
+	}
+	
+	public static void menuEachDisplayed(List<WebElement> list) {
+		for(WebElement each : list) {
+			assertDisplayed(each);
+		}
+		
 	}
 	
 	public static WebElement chooseMenu(List<WebElement> list, String menuName) {
@@ -192,6 +212,54 @@ public class CommonMethods extends PageInitializer{
 		waitForVisibility(e2);
 		waitForVisibility(e3);
 		Assert.assertTrue(e.isDisplayed() && e2.isDisplayed() && e3.isDisplayed());
+	}
+	
+	public static Actions getActionsClass() {
+		Actions action = new Actions(BaseClass.getDriver());
+		return action;
+	}
+
+	public static void dragAndDrop(WebElement element, int x, int y) {
+		getActionsClass().dragAndDropBy(element, x, y).perform();
+		
+	}
+	
+
+	public static ArrayList<Double> justPrice(List<WebElement> elements, ArrayList<Double> list) {
+		for (WebElement el : elements) {
+			Double p = Double.parseDouble(el.getText().substring(1, el.getText().length()));
+			list.add(p);
+		}
+		return list;
+	}
+
+	public static Double justPrice(WebElement element) {
+		String s = element.getText().substring(1, element.getText().length());
+		Double d = Double.parseDouble(s);
+		return d;
+	}
+	
+	public static void dropDown(String value) {
+		Select select = new Select(hp.sortingDropDown);
+		select.selectByValue(value);
+	}
+	
+	public static void dropDown(String value, WebElement element) {
+		Select select = new Select(element);
+		select.selectByValue(value);
+	}
+	
+	public static JavascriptExecutor getJSObject() {
+		JavascriptExecutor js = (JavascriptExecutor) BaseClass.getDriver();
+		return js;
+	}
+	
+	public static void scrollToElement(WebElement element) {
+		getJSObject().executeScript("arguments[0].scrollIntoView(true);", element);
+	}
+	
+	public static void scrollBy(int pixel) {
+		getJSObject().executeScript("window.scrollBy(0," + pixel + ")");
 	}
 	
 	

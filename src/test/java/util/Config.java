@@ -12,8 +12,8 @@ public class Config {
 
 		try {
 
-			String userDataFilePath = "src\\test\\resources\\configFolders\\userData.properties";
-			String requiredDataFilePath = "src\\test\\resources\\configFolders\\required.properties";
+			String userDataFilePath = "src/test/resources/configFolders/userData.properties";
+			String requiredDataFilePath = "src/test/resources/configFolders/required.properties";
 
 			FileInputStream fisUser = new FileInputStream(userDataFilePath);
 			FileInputStream fisRequired = new FileInputStream(requiredDataFilePath);
