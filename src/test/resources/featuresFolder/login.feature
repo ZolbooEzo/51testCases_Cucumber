@@ -1,11 +1,8 @@
+Feature: Login test
 
-Feature: Title of your feature
-
-Background:
-Given User is on home page
-When User clicks on myaccout link
-
-
+	Background:
+	Given User is on home page
+	When User clicks on myaccout link
     
  	  Scenario: Valid username and password1
     And Login with valid credentials

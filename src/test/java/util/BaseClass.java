@@ -43,6 +43,9 @@ public class BaseClass {
 				WebDriverManager.safaridriver().setup();
 				driver = new SafariDriver();
 				break;
+				
+			default:
+				throw new IllegalArgumentException("Please provide correct browser name");
 			}
 
 			driver.manage().window().maximize();

@@ -66,6 +66,13 @@ public class CommonMethods extends PageInitializer{
 		waitForVisibility(element).clear();
 		element.sendKeys(message);
 	}
+	
+	public static void sendTextPassword(WebElement element, String message) {
+		waitForVisibility(element).clear();
+		element.sendKeys(message);
+		wait(1);
+		element.sendKeys("a");
+	}
 
 	public static WebDriverWait getWaitObject() {
 		WebDriverWait wait = new WebDriverWait(getDriver(), Constants.explicitWait);
@@ -112,6 +119,24 @@ public class CommonMethods extends PageInitializer{
 		return null;
 	}
 	
+	public static WebElement chooseMenu(List<WebElement> list, String menuName) {
+		for(WebElement each : list) {
+			if(each.getText().equalsIgnoreCase(menuName)) {
+				return each;
+			}
+		}
+		return null;
+	}
+	
+	public static WebElement chooseMenuClick(List<WebElement> list, String menuName) {
+		for(WebElement each : list) {
+			if(each.getText().equalsIgnoreCase(menuName)) {
+				each.click();
+			}
+		}
+		return null;
+	}
+	
 	public static void refresh() {
 		BaseClass.getDriver().navigate().refresh();
 	}
@@ -140,15 +165,36 @@ public class CommonMethods extends PageInitializer{
 	
 	public static void doRegistration() {
 		sendText(map.registerUserNameBox, randomMailGenerator());
-		sendText(map.registerPasswordBox, Config.getUserData("userPassword"));
+		sendTextPassword(map.registerPasswordBox, Config.getUserData("userPassword"));
 		click(map.registerButton);
 	}
 	
 	public static void doRegistration(String userName, String password) {
 		sendText(map.registerUserNameBox, userName);
+		sendTextPassword(map.registerPasswordBox, password);
+		click(map.registerButton);
+	}
+	
+	public static void doRegistrationEmptyPassword(String userName, String password) {
+		sendText(map.registerUserNameBox, userName);
 		sendText(map.registerPasswordBox, password);
 		click(map.registerButton);
 	}
+	
+	public static void assertDisplayed(WebElement e, WebElement e2) {
+		waitForVisibility(e);
+		waitForVisibility(e2);
+		Assert.assertTrue(e.isDisplayed() && e2.isDisplayed());
+	}
+	
+	public static void assertDisplayed(WebElement e, WebElement e2, WebElement e3) {
+		waitForVisibility(e);
+		waitForVisibility(e2);
+		waitForVisibility(e3);
+		Assert.assertTrue(e.isDisplayed() && e2.isDisplayed() && e3.isDisplayed());
+	}
+	
+	
 	
 	
 	
