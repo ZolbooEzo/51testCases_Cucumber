@@ -3,7 +3,7 @@ Feature: Login test
 	Background:
 	Given User is on home page
 	When User clicks on myaccout link
-    
+    @unit
  	  Scenario: Valid username and password1
     And Login with valid credentials
     Then Verify dashboard link is displayed

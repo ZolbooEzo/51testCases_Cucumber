@@ -12,8 +12,8 @@ public class Config {
 
 		try {
 
-			String userDataFilePath = "src/test/resources/configFolders/userData.properties";
-			String requiredDataFilePath = "src/test/resources/configFolders/required.properties";
+			String userDataFilePath = Constants.userDataProperties;
+			String requiredDataFilePath = Constants.requiredProperties;
 
 			FileInputStream fisUser = new FileInputStream(userDataFilePath);
 			FileInputStream fisRequired = new FileInputStream(requiredDataFilePath);
@@ -32,11 +32,11 @@ public class Config {
 		}
 
 	}
-	
+
 	public static String getUserData(String userKey) {
 		return userData.getProperty(userKey);
 	}
-	
+
 	public static String getRequiredData(String requiredKey) {
 		return requiredData.getProperty(requiredKey);
 	}
